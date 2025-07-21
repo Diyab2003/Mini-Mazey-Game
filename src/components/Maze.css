@@ -1,0 +1,275 @@
+/* Global styles for the entire page */
+body, html, #root { /* Assuming your React app mounts to #root */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrollbars on the main page */
+    display: flex; /* Use flexbox for overall page layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    
+    background: radial-gradient(circle at top left, #4a00e0, #8e2de2, #ee0979); /* Vibrant radial gradient */
+    background-size: 400% 400%;
+    animation: gradient-animation 20s ease infinite alternate; /* Slower, alternating animation */
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A modern, clean font */
+    color: #333; /* Dark text for contrast on light background */
+}
+
+/* Keyframes for gradient animation */
+@keyframes gradient-animation {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* New overall wrapper for the entire game content (title, main-layout-wrapper, button) */
+.overall-game-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack title, main content, and button vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: space-between; /* Distribute space between top, middle, and bottom elements */
+    
+    width: 100vw; /* Take full viewport width */
+    height: 100vh; /* Take full viewport height */
+    max-width: 98vw; /* Constrain slightly from edges */
+    max-height: 98vh; /* Constrain slightly from edges */
+    padding: 10px; /* Add some padding around the entire content */
+    box-sizing: border-box; /* Include padding in width/height */
+}
+
+/* Game title styling */
+.game-title {
+    font-size: 2.2em; /* Slightly larger title font */
+    margin-bottom: 10px; /* Space below the title */
+    color: #333; /* Dark color for title */
+    text-shadow: none; /* Removed glow effect for cleaner look */
+    letter-spacing: 1px; /* Spacing between letters */
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+/* New wrapper for the main game layout (score, game-container, instructions) */
+.main-layout-wrapper {
+    display: flex; /* Use flexbox to arrange score, game-container, instructions side-by-side */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    flex-grow: 1; /* Allow this section to grow and take available vertical space */
+    width: 100%; /* Take full width of parent */
+    padding: 10px 0; /* Some vertical padding */
+    box-sizing: border-box;
+}
+
+/* Container for the main game box (maze itself) */
+.game-container {
+    display: flex;
+    flex-direction: column; /* Arrange maze elements vertically (if any internal) */
+    align-items: center; /* Center maze horizontally */
+    justify-content: center; /* Center maze vertically */
+    
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white for a modern look */
+    padding: 20px; /* Padding inside the game box */
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); /* Stronger, more prominent shadow */
+    position: relative; /* For potential absolute positioning of UI elements later */
+
+    /* Responsive sizing for the main game box */
+    /* --- ADJUSTED: Fixed size for the game box, will be centered by main-layout-wrapper --- */
+    width: 600px; /* Fixed width for the game box */
+    height: 600px; /* Fixed height for the game box to make it square */
+    flex-shrink: 0; /* Prevent game container from shrinking */
+    margin: 0 30px; /* Add horizontal margin to separate from score/instructions */
+}
+
+/* Score display container (now a direct child of overall-game-wrapper) */
+.score-display-right {
+    position: absolute; /* Position absolutely relative to the body/html */
+    top: 20px; /* 20px from the top */
+    right: 20px; /* 20px from the right */
+    font-size: 1.8em; /* Larger font size */
+    font-weight: bold;
+    color: white; /* Changed score text color to white */
+    z-index: 1000; /* Ensure it's above other elements */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Added for better visibility on gradients */
+}
+
+/* Instructions and Play Again button container (now a direct child of main-layout-wrapper) */
+.instructions-area-right {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: right;
+    flex-shrink: 0; /* Prevent from shrinking */
+    padding: 0 100px; /* Padding for spacing */
+    font-size: 1em;
+    color: #e7ebe9;
+    text-align: right;
+}
+
+
+/* Main maze grid container */
+.maze-container {
+    width: 100%; /* Take up 100% of the game-container's width */
+    height: 100%; /* Take up 100% of the game-container's height */
+    display: grid;
+    /* IMPORTANT: This must match MAZE_GRID_WIDTH from App.jsx (21 in this case) */
+    grid-template-columns: repeat(21, 1fr); /* Example: 21 columns for a square maze */
+    grid-template-rows: repeat(21, 1fr); /* Explicitly define 21 rows, each taking equal fraction of space */
+    justify-content: center; /* Center grid items horizontally */
+    align-content: center; /* Center grid items vertically */
+    
+    gap: 1px; /* This gap will be the thickness of the black border lines */
+    background-color: black; /* This background color will show through the gaps, forming the black borders */
+}
+
+/* Individual maze cell styling */
+.cell {
+    width: 100%; /* Make cell fill its grid column */
+    height: 100%; /* Make cell fill its grid row */
+    
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    transition: background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out; /* Added box-shadow to transition */
+    border-radius: 0; /* Keep cells square for a classic maze look */
+    
+    padding: 0; /* No padding */
+    background-clip: border-box; /* Revert to default */
+}
+
+/* Wall cell styling - these are now solid black blocks */
+.wall {
+    background-color: black; /* Black for walls */
+}
+
+/* Path cell styling - these are the visible white path blocks */
+.path {
+    background-color: white; /* White for paths */
+}
+
+
+/* Player cell styling */
+.player {
+    background-color: rgb(217, 112, 13); /* Distinct player color */
+    border: none; /* Removed border */
+    box-shadow: none; /* Removed glow effect */
+    border-radius: 0; /* Make player square to fill cell */
+    display: flex; /* Use flexbox to center any inner content */
+    justify-content: center; /* Corrected: Added 'center' value */
+    align-items: center;
+    transform: scale(1); /* Player now fills the entire cell */
+}
+
+/* Exit cell styling */
+.exit {
+    background-color: rgb(31, 179, 71); /* Changed to yellow for a solid fill */
+    border: none; /* Removed border */
+    box-shadow: none; /* Removed box-shadow */
+    border-radius: 0; /* Make exit square to fill cell */
+    display: flex; /* Use flexbox to center any inner content */
+    justify-content: center; /* Corrected: Added 'center' value */
+    align-items: center;
+    transform: scale(1); /* Make exit fill the entire cell */
+}
+
+/* --- NEW: Gem styling --- */
+.gem {
+    background-color: #FFD700; /* Gold color for gems */
+    border-radius: 50%; /* Make gems circular */
+    transform: scale(0.6); /* Make gems slightly smaller than cell */
+    box-shadow: 0 0 8px #FFD700; /* Subtle glow */
+    animation: pulse-gem 1.5s infinite alternate; /* Pulsing animation */
+}
+
+@keyframes pulse-gem {
+    from { transform: scale(0.6); opacity: 1; }
+    to { transform: 0.7; opacity: 0.8; } /* Corrected transform property in keyframe */
+}
+
+.gem-svg { /* Styling for the inline SVG gem */
+    width: 50%;
+    height: 50%;
+    display: block; /* Remove extra space below inline elements */
+}
+
+
+/* Styling for the new Reset/Play Again button */
+.reset-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding for size */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1em; /* Font size */
+    margin-top: 15px; /* Space above the button */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.reset-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+
+/* --- NEW: Level Transition Overlay Styling --- */
+.level-transition-overlay {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    color: white; /* White text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em; /* Large font for message */
+    font-weight: bold;
+    z-index: 9999; /* Ensure it's on top of everything */
+    opacity: 0; /* Start invisible */
+    pointer-events: none; /* Allow clicks to pass through when invisible */
+    animation: fade-in-out 2.5s forwards; /* Animation for fading */
+}
+
+/* Keyframes for fade-in-out animation */
+@keyframes fade-in-out {
+    0% { opacity: 0; pointer-events: none; } /* Start transparent */
+    20% { opacity: 1; pointer-events: auto; } /* Fade in */
+    80% { opacity: 1; pointer-events: auto; } /* Stay visible */
+    100% { opacity: 0; pointer-events: none; } /* Fade out */
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    body, html, #root {
+        background-color: #F0F0F0; /* Maintain light background on small screens */
+    }
+    .game-container {
+        padding: 20px; /* Reduce padding */
+        border-radius: 5px; /* Slightly less rounded corners */
+        min-width: unset; /* Allow container to shrink below minimums on very small screens */
+        min-height: unset;
+    }
+    .game-title {
+        font-size: 1em; /* Smaller title font */
+        margin-bottom: 10px; /* Reduced margin */
+    }
+    .score-display {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+    .maze-container {
+        gap: 0.5px; /* Smaller gap on small screens */
+    }
+    .player, .exit {
+        transform: scale(1); /* Player/exit appear slightly larger on small screens */
+    }
+    .score-display-right {
+        font-size: 1.2em;
+        top: 10px;
+        right: 10px;
+    }
+    .level-transition-overlay {
+        font-size: 2em;
+    }
+}
