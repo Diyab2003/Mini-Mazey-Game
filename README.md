@@ -1,4 +1,5 @@
-🚀 One Tap Trails: An Accessible Maze Adventure! Thrilled to share a project I've been working on: One Tap Trails, a maze game designed with a special focus on accessibility for children with motor impairments.
+
+# 🚀 **One Tap Trails: An Accessible Maze Adventure!** Thrilled to share a project I've been working on: One Tap Trails, a maze game designed with a special focus on accessibility for children with motor impairments.
  
 💡 The Problem: Children with motor impairments (e.g., limited use of hands or arms) often face barriers when engaging with traditional digital games that require complex controls. My goal was to create an interactive and fun experience that is genuinely accessible and inclusive.
 
