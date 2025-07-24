@@ -1,5 +1,7 @@
 
-# 🚀 **One Tap Trails: An Accessible Maze Adventure!** Thrilled to share a project I've been working on: One Tap Trails, a maze game designed with a special focus on accessibility for children with motor impairments.
+# 🚀 **One Tap Trails: An Accessible Maze Adventure!** 
+
+Thrilled to share a project I've been working on: One Tap Trails, a maze game designed with a special focus on accessibility for children with motor impairments.
  
 💡 The Problem: Children with motor impairments (e.g., limited use of hands or arms) often face barriers when engaging with traditional digital games that require complex controls. My goal was to create an interactive and fun experience that is genuinely accessible and inclusive.
 
@@ -14,6 +16,7 @@ Dynamic Maze Generation: Every game offers a new, uniquely generated maze, ensur
 Engaging Collectibles: Players collect sparkling gems for points, adding an extra layer of fun and reward.
 
 Clear Visuals & Audio Feedback: High-contrast visuals (black walls, white paths, vibrant highlights) and distinct sound effects for gem collection and winning provide clear feedback.
+_______________________________________________________________________________________________________________________________________________________________
 
 🛠️ Technology Stack: React: For building a dynamic and responsive user interface.
 
