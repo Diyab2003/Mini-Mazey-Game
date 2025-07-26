@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'; // Import useRef
+import React, { useState, useEffect, useRef } from 'react'; 
 import * as Tone from 'tone'; // Import Tone.js for sound effects
-import "./components/maze.css"; // Corrected path: should be "./components/maze.css"
-
-// REMOVED: Direct imports for sound files from src/assets/sounds/
-// import gameAwardBonusSound from './assets/sounds/game_award_bonus_.mp3';
-// import gameOrchestralWinSound from './assets/sounds/game_orchestral_win_.mp3';
-// import crowdCheerSound from './assets/sounds/crowd-cheer.wav';
+import "./components/maze.css"; 
 
 
 // --- Maze Dimensions ---
-// ADJUSTED: Reverted to 21x21 for a square maze as requested
+
 const MAZE_GRID_HEIGHT = 21; // Must be odd (e.g., 21 rows for a good size)
-const MAZE_GRID_WIDTH = 21;  // Must be odd (for a square maze)
+const MAZE_GRID_WIDTH = 21;  
 
 // --- Helper function for generating the maze using Recursive Backtracking (DFS) ---
 const generateMaze = (rows, cols, startRow, startCol, endRow, endCol) => {
@@ -29,15 +24,15 @@ const generateMaze = (rows, cols, startRow, startCol, endRow, endCol) => {
     // Stack for DFS (Depth-First Search)
     const stack = [];
 
-    // Ensure start cell is within bounds and odd for the algorithm to work correctly
+    
     const initialRow = startRow % 2 === 0 ? startRow + 1 : startRow;
     const initialCol = startCol % 2 === 0 ? startCol + 1 : startCol; 
 
     stack.push([initialRow, initialCol]);
-    maze[initialRow][initialCol] = 0; // Mark start cell as path
+    maze[initialRow][initialCol] = 0; 
 
     while (stack.length > 0) {
-        const [currentRow, currentCol] = stack[stack.length - 1]; // Peek current cell
+        const [currentRow, currentCol] = stack[stack.length - 1]; 
 
         const unvisitedNeighbors = [];
 
@@ -90,17 +85,13 @@ function App() {
     const [isTransitioning, setIsTransitioning] = useState(false); // NEW: State for level transition animation
     const [transitionMessage, setTransitionMessage] = useState(''); // NEW: Message for transition screen
 
-    // REMOVED: State for scanning through available paths
-    // const [availablePaths, setAvailablePaths] = useState([]);
-    // const [currentScanIndex, setCurrentScanIndex] = useState(0);
-    // const scanIntervalRef = useRef(null);
 
     const [gems, setGems] = useState([]); // State to store gem positions
 
     // NEW: Tone.js Players for sound effects
     const gemCollectSound = useRef(null);
     const winSound = useRef(null);
-    const backgroundMusic = useRef(null); // Optional: for background music
+    const backgroundMusic = useRef(null); 
 
     useEffect(() => {
         // Initialize Tone.js Players once with direct public paths
@@ -119,8 +110,8 @@ function App() {
             if (gemCollectSound.current) gemCollectSound.current.dispose();
             if (winSound.current) winSound.current.dispose();
             if (backgroundMusic.current) backgroundMusic.current.dispose();
-        };
-    }, []);
+          };
+        }, []);
 
 
     // Function to get a random odd coordinate within bounds
@@ -132,13 +123,9 @@ function App() {
     // Function to find valid adjacent moves from a given position (no longer needed for scanning)
     // const getValidAdjacentMoves = (currentMaze, currentRow, currentCol) => { ... };
 
-    // Function to manage the scanning interval (REMOVED)
-    // const startScanning = (currentMaze, currentPlayerPos) => { ... };
 
     // Function to initialize/reset the game for a new level or new game
     const initializeGame = (newLevel = 1) => { // Added newLevel parameter
-        // Clear any active scanning interval before generating a new maze (REMOVED)
-        // if (scanIntervalRef.current) { clearInterval(scanIntervalRef.current); }
 
         let startRow, startCol, endRow, endCol;
         const MIN_DISTANCE = Math.floor(MAZE_GRID_HEIGHT / 3); // Define minimum distance (e.g., 1/3 of maze height)
@@ -215,9 +202,6 @@ function App() {
         }
         setGems(newGems);
 
-
-        // Removed: Start scanning after the maze and player position are set
-        // setTimeout(() => startScanning(generatedMaze, { row: startRow, col: startCol }), 0);
     };
 
     useEffect(() => {
@@ -225,9 +209,6 @@ function App() {
         // Cleanup interval on component unmount (REMOVED)
         // return () => { if (scanIntervalRef.current) { clearInterval(scanIntervalRef.current); } };
     }, []);
-
-    // Removed: Effect to restart scanning when player position changes
-    // useEffect(() => { ... }, [playerPos, maze]);
 
     // --- Game Logic for Player Movement (Arrow Keys) ---
     const handleKeyDown = (e) => {
@@ -345,15 +326,6 @@ function App() {
                                     // If it's a gem, ensure its class is added
                                     cellClass += ' gem';
                                 }
-                                
-                                // Removed highlighted-path class application
-                                // if (
-                                //     availablePaths.length > 0 &&
-                                //     rowIndex === availablePaths[currentScanIndex].row &&
-                                //     colIndex === availablePaths[currentScanIndex].col
-                                // ) {
-                                //     cellClass += ' highlighted-path'; // Apply highlight class to the single highlighted cell
-                                // }
                                 
                                 // Return a div for each cell with its calculated class
                                 return (
